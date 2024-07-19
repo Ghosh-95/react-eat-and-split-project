@@ -1,6 +1,7 @@
 import Button from "./Button";
+import { useState } from "react";
 
-export default function FormAddFriend({ friendList, onAddFriend }) {
+export default function FormAddFriend({ onAddFriend }) {
     const [friendName, setFriendName] = useState('');
     const [friendImage, setFriendImage] = useState('https://i.pravatar.cc/48');
 
@@ -12,7 +13,7 @@ export default function FormAddFriend({ friendList, onAddFriend }) {
         e.preventDefault();
         const newObj = { id, name: friendName, image: `${friendImage}?u=${id}`, balance: 0 };
 
-        onAddFriend([...friendList, newObj]);
+        onAddFriend(newObj);
 
         setFriendImage('https://i.pravatar.cc/48');
         setFriendName('');
