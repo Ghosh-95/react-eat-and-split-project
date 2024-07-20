@@ -17,10 +17,15 @@ function App() {
     setOpenAddFriend(false);
   };
 
+  function handleSelectFriend(friend) {
+    setSelectFriend(cur => cur?.id === friend.id ? "null" : friend);
+    setOpenAddFriend(false);
+  }
+
   return (
     <section className="app">
       <div className="sidebar">
-        <FriendList friendList={friendList} onSelectFriend={setSelectFriend} selectFriend={selectFriend} />
+        <FriendList friendList={friendList} onSelectFriend={handleSelectFriend} selectFriend={selectFriend} />
         {openAddFriend && <FormAddFriend onAddFriend={handleAddNewFriend} />}
         <Button onClick={handleAddFriend}>{openAddFriend ? "Close" : "Add Friend"}</Button>
       </div>
