@@ -20,6 +20,11 @@ function App() {
   function handleSelectFriend(friend) {
     setSelectFriend(cur => cur?.id === friend.id ? "null" : friend);
     setOpenAddFriend(false);
+  };
+
+  function handleSplitBill(value) {
+    setFriendList(friends => friends.map(friend => friend.id === selectFriend.id ? { ...friend, balance: friend.balance + value } : friend));
+    setSelectFriend(null);
   }
 
   return (
@@ -29,7 +34,7 @@ function App() {
         {openAddFriend && <FormAddFriend onAddFriend={handleAddNewFriend} />}
         <Button onClick={handleAddFriend}>{openAddFriend ? "Close" : "Add Friend"}</Button>
       </div>
-      {selectFriend !== '' && <FormSplitBill selectFriend={selectFriend} />}
+      {selectFriend !== '' && <FormSplitBill selectFriend={selectFriend} onSplitBill={handleSplitBill} />}
     </section>
   );
 };
