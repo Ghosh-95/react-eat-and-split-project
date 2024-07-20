@@ -23,27 +23,31 @@ function App() {
   };
 
   function handleSplitBill(value) {
-    setFriendList(friends => friends.map(friend => friend.id === selectFriend.id ? { ...friend, balance: friend.balance + value } : friend));
+    setFriendList(friends => friends.map(friend => friend?.id === selectFriend.id ? { ...friend, balance: friend.balance + value } : friend));
     setSelectFriend(null);
+  };
+
+  function handleCloseAccount(closeFriend) {
+    setFriendList(friends => friends.filter(friend => friend.id !== closeFriend.id));
   }
 
   return (
     <section className="app">
       <div className="sidebar">
-        <FriendList friendList={friendList} onSelectFriend={handleSelectFriend} selectFriend={selectFriend} />
+        <FriendList friendList={friendList} onSelectFriend={handleSelectFriend} selectFriend={selectFriend} onCloseAccount={handleCloseAccount} />
         {openAddFriend && <FormAddFriend onAddFriend={handleAddNewFriend} />}
         <Button onClick={handleAddFriend}>{openAddFriend ? "Close" : "Add Friend"}</Button>
       </div>
-      {selectFriend !== '' && <FormSplitBill selectFriend={selectFriend} onSplitBill={handleSplitBill} />}
+      {selectFriend && <FormSplitBill selectFriend={selectFriend} onSplitBill={handleSplitBill} />}
     </section>
   );
 };
 
-function FriendList({ friendList, onSelectFriend, selectFriend }) {
+function FriendList({ friendList, onSelectFriend, selectFriend, onCloseAccount }) {
   return (
     <ul>
       {friendList.map(friend => (
-        <Friend key={friend.id} friend={friend} onSelectFriend={onSelectFriend} selectFriend={selectFriend} />
+        <Friend key={friend.id} friend={friend} onSelectFriend={onSelectFriend} onCloseAccount={onCloseAccount} selectFriend={selectFriend} />
       ))}
     </ul>
   );

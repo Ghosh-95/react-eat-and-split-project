@@ -1,6 +1,6 @@
 import Button from "./Button";
 
-export default function Friend({ friend, onSelectFriend, selectFriend }) {
+export default function Friend({ friend, onSelectFriend, selectFriend, onCloseAccount }) {
     const isSelected = friend?.id === selectFriend?.id;
 
     return (
@@ -13,6 +13,7 @@ export default function Friend({ friend, onSelectFriend, selectFriend }) {
             <Button onClick={() => onSelectFriend(isSelected ? "" : friend)}>
                 {isSelected ? "Close" : "Select"}
             </Button>
+            {friend.balance === 0 && <Button style={{ "backgroundColor": "brown", "color": "white" }} onClick={() => onCloseAccount(friend)}>Close</Button>}
         </li>
     );
 };
